@@ -41,6 +41,25 @@
 		</div>
 	</div>
 	<script type="text/javascript">
+		window.onload = function(){
+			// Keep checking for message
+			alert('01');
+			var checkIframeMessageExist = setInterval(function() {
+				alert('02');
+				if (window.addEventListener) {
+					alert('03');
+					// For standards-compliant web browsers
+					window.addEventListener("message", displayMessage, false);
+					alert('03-B');
+					clearInterval(checkIframeMessageExist);
+				} else if (window.attachEvent) {
+					alert('04');
+					window.attachEvent("onmessage", displayMessage);
+					clearInterval(checkIframeMessageExist);
+				}
+			}, 100); // check every 100ms
+		}
+		
 		function displayMessage (evt) {
 			alert('aa');
 			var message;
@@ -51,24 +70,6 @@
 			}
 			//return message;
 			document.getElementById("received-message").innerHTML = "<br> TESTE: ".bold() + message;
-		}
-		
-		window.onload = function(){
-			// Keep checking for message
-			alert('01');
-			var checkIframeMessageExist = setInterval(function() {
-				alert('02');
-				if (window.addEventListener) {
-					alert('03');
-					// For standards-compliant web browsers
-					window.addEventListener("message", displayMessage, false);
-					clearInterval(checkIframeMessageExist);
-				} else if (window.attachEvent) {
-					alert('04');
-					window.attachEvent("onmessage", displayMessage);
-					clearInterval(checkIframeMessageExist);
-				}
-			}, 100); // check every 100ms
 		}
 		
 		window.onmessage=function(e){
