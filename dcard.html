@@ -35,15 +35,16 @@
 		<div class="h_iframe">
 			<!-- a transparent image is preferable -->
 			<img class="ratio" src="https://mauriciojun.github.io/home-screen/16x9.png" />
-			<iframe id="iframe_id" src="https://mauriciojun-dcard.blogspot.com/" frameborder="0" allowfullscreen></iframe>
+			<iframe id="iframe_id" name="iframe_name" src="https://mauriciojun-dcard.blogspot.com/" frameborder="0" allowfullscreen></iframe>
 		</div>
 	</div>
 	<script type="text/javascript">
-		window.addEventListener('message', function(e) {
-			console.log(e.data);
-			//do stuff
-			alert(e.data);
-		});
+		window.onmessage=function(e){
+			out.innerHTML+= "<br> Message from outside iframe: ".bold()+ 
+							 new Date(e.timeStamp)+" \t "+
+							 e.data.name+" :: " + 
+							 e.data.number.toString().fontcolor('blue')+ "<br>";
+		};
 	</script>
 </body>
 </html>
