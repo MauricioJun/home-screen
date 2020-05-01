@@ -44,6 +44,7 @@
 			out.innerHTML+= "<br> Message from outside iframe: ".bold()+ 
 							 new Date(e.timeStamp)+" \t "+
 							 e.data.name+" :: " + 
+							 e.origin+" :: " + 
 							 e.data.number.toString().fontcolor('blue')+ "<br>";
 		};
 	</script>
