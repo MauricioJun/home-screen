@@ -62,7 +62,8 @@
 			} else {
 				message = "I got " + evt.data + " from " + evt.origin;
 			}
-			document.getElementById("received-message").innerHTML = message;
+			return message;
+			//document.getElementById("received-message").innerHTML = "<br> TESTE: ".bold() + message;
 		}
 		
 		window.onmessage=function(e){
