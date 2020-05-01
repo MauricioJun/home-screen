@@ -41,6 +41,18 @@
 		</div>
 	</div>
 	<script type="text/javascript">
+		function displayMessage (evt) {
+			alert('aa');
+			var message;
+			if (evt.origin !== "https://mauriciojun-dcard.blogspot.com") {
+				message = "You are not worthy";
+			} else {
+				message = "I got " + evt.data + " from " + evt.origin;
+			}
+			//return message;
+			document.getElementById("received-message").innerHTML = "<br> TESTE: ".bold() + message;
+		}
+		
 		window.onload = function(){
 			// Keep checking for message
 			alert('01');
@@ -57,18 +69,6 @@
 					clearInterval(checkIframeMessageExist);
 				}
 			}, 100); // check every 100ms
-		}
-		
-		function displayMessage (evt) {
-			alert('aa');
-			var message;
-			if (evt.origin !== "https://mauriciojun-dcard.blogspot.com") {
-				message = "You are not worthy";
-			} else {
-				message = "I got " + evt.data + " from " + evt.origin;
-			}
-			//return message;
-			document.getElementById("received-message").innerHTML = "<br> TESTE: ".bold() + message;
 		}
 		
 		window.onmessage=function(e){
