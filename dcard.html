@@ -31,7 +31,8 @@
 </style>
 </head>
 <body>
-	<output id=out> <br> </output>
+	<output id="out"> <br> </output>
+	<output id="received-message"> <br> </output>
 	<div class="wrapper">
 		<div class="h_iframe">
 			<!-- a transparent image is preferable -->
@@ -40,11 +41,34 @@
 		</div>
 	</div>
 	<script type="text/javascript">
+		window.onload = function(){
+			// Keep checking for message
+			var checkIframeMessageExist = setInterval(function() {
+				if (window.addEventListener) {
+					// For standards-compliant web browsers
+					window.addEventListener("message", displayMessage, false);
+					clearInterval(checkIframeMessageExist);
+				} else if (window.attachEvent) {
+					window.attachEvent("onmessage", displayMessage);
+					clearInterval(checkIframeMessageExist);
+				}
+			}, 100); // check every 100ms
+		}
+		
+		function displayMessage (evt) {
+			var message;
+			if (evt.origin !== "https://mauriciojun-dcard.blogspot.com") {
+				message = "You are not worthy";
+			} else {
+				message = "I got " + evt.data + " from " + evt.origin;
+			}
+			document.getElementById("received-message").innerHTML = message;
+		}
+		
 		window.onmessage=function(e){
 			out.innerHTML+= "<br> Message from outside iframe: ".bold()+ 
 							 new Date(e.timeStamp)+" \t "+
 							 e.data.name+" :: " + 
-							 e.origin+" :: " + 
 							 e.data.number.toString().fontcolor('blue')+ "<br>";
 		};
 	</script>
