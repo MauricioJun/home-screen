@@ -43,12 +43,16 @@
 	<script type="text/javascript">
 		window.onload = function(){
 			// Keep checking for message
+			alert('01');
 			var checkIframeMessageExist = setInterval(function() {
+				alert('02');
 				if (window.addEventListener) {
+					alert('03');
 					// For standards-compliant web browsers
 					window.addEventListener("message", displayMessage, false);
 					clearInterval(checkIframeMessageExist);
 				} else if (window.attachEvent) {
+					alert('04');
 					window.attachEvent("onmessage", displayMessage);
 					clearInterval(checkIframeMessageExist);
 				}
@@ -56,7 +60,7 @@
 		}
 		
 		function displayMessage (evt) {
-			alert('!');
+			alert('aa');
 			var message;
 			if (evt.origin !== "https://mauriciojun-dcard.blogspot.com") {
 				message = "You are not worthy";
