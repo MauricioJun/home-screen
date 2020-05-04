@@ -31,53 +31,68 @@
 </style>
 </head>
 <body>
-	<output id="out"> <br> </output>
+	<!-- <output id="out"> <br> </output> -->
 	<output id="received-message"> <br> </output>
 	<div class="wrapper">
 		<div class="h_iframe">
 			<!-- a transparent image is preferable -->
 			<img class="ratio" src="https://mauriciojun.github.io/home-screen/16x9.png" />
-			<iframe id="iframe_id" name="iframe_name" src="https://mauriciojun-dcard.blogspot.com/" frameborder="0" allowfullscreen></iframe>
+			<iframe id="iframe_id" name="iframe_name" src="https://mauriciojun-dcard.blogspot.com/" frameborder="0" allowfullscreen iframe-height="0"></iframe>
 		</div>
 	</div>
 	<script type="text/javascript">
 		window.onload = function(){
 			// Keep checking for message
-			alert('01');
 			var checkIframeMessageExist = setInterval(function() {
-				alert('02');
-				if (window.addEventListener) {
-					alert('03');
-					// For standards-compliant web browsers
-					window.addEventListener("message", displayMessage, false);
-					alert('03-B');
-					clearInterval(checkIframeMessageExist);
-				} else if (window.attachEvent) {
-					alert('04');
-					window.attachEvent("onmessage", displayMessage);
+				var myIframe = document.getElementById('iframe_id');
+				var isLoaded = myIframe.prop('iframe-height');
+				if(isLoaded != '1')
+				{
+				console.log('iframe failed to load');
+				} else {
+				console.log('iframe loaded');
+				}
+				if (isLoaded == '0') {
+					console.log('iframe failed to load');
+					//clearInterval(checkIframeMessageExist);
+				} else {
+					console.log('iframe loaded');
+					alert('iframe loaded!!!');
 					clearInterval(checkIframeMessageExist);
 				}
 			}, 100); // check every 100ms
 		}
 		
+		if (window.addEventListener) {
+			// For standards-compliant web browsers
+			window.addEventListener("message", displayMessage, false);
+		} else if (window.attachEvent) {
+			window.attachEvent("onmessage", displayMessage);
+		} else {
+			window.onmessage = displayMessage();
+		}
+		
 		function displayMessage (evt) {
-			alert('aa');
 			var message;
 			if (evt.origin !== "https://mauriciojun-dcard.blogspot.com") {
-				message = "You are not worthy";
+				message = "Negado";
 			} else {
-				message = "I got " + evt.data + " from " + evt.origin;
+				message = "I got " + new Date(evt.timeStamp) + " \t " + evt.data.name + " :: " + evt.data.iframeheight.toString().fontcolor('green') + " :: " + evt.data.number.toString().fontcolor('blue') + evt.data + " from " + evt.origin + "<br>";
+				if(evt.data.iframeheight.toString() !== '0'){
+					$("#iframe_id").prop('iframe-height', evt.data.iframeheight);
+				}
 			}
 			//return message;
 			document.getElementById("received-message").innerHTML = "<br> TESTE: ".bold() + message;
 		}
-		
+		/*
 		window.onmessage=function(e){
 			out.innerHTML+= "<br> Message from outside iframe: ".bold()+ 
 							 new Date(e.timeStamp)+" \t "+
 							 e.data.name+" :: " + 
 							 e.data.number.toString().fontcolor('blue')+ "<br>";
 		};
+		*/		
 	</script>
 </body>
 </html>
