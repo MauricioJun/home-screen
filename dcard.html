@@ -46,15 +46,14 @@
 		window.onload = function(){
 			// Keep checking for message
 			var checkIframeMessageExist = setInterval(function() {
-				//var myIframe = document.getElementById('iframe_id');
-				//var isLoaded = myIframe.attr('iframe-height');
 				var isLoaded = $("#iframe_id").attr("iframe-height");
 				if (isLoaded == '0') {
 					console.log('iframe failed to load');
 					clearInterval(checkIframeMessageExist);
 				} else {
 					console.log('iframe loaded');
-					alert('iframe loaded!!!');
+					$("#iframe_id").height(isLoaded);
+					//alert('iframe loaded!!!');
 					clearInterval(checkIframeMessageExist);
 				}
 			}, 100); // check every 100ms
