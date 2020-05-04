@@ -46,12 +46,6 @@
 			var checkIframeMessageExist = setInterval(function() {
 				var myIframe = document.getElementById('iframe_id');
 				var isLoaded = myIframe.prop('iframe-height');
-				if(isLoaded != '1')
-				{
-				console.log('iframe failed to load');
-				} else {
-				console.log('iframe loaded');
-				}
 				if (isLoaded == '0') {
 					console.log('iframe failed to load');
 					//clearInterval(checkIframeMessageExist);
