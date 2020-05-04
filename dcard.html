@@ -42,8 +42,10 @@
 		</div>
 	</div>
 	<script type="text/javascript">
+		alert($("#iframe_id").prop('iframe-height'));
 		window.onload = function(){
 			// Keep checking for message
+			/*
 			var checkIframeMessageExist = setInterval(function() {
 				var myIframe = document.getElementById('iframe_id');
 				var isLoaded = myIframe.prop('iframe-height');
@@ -56,6 +58,7 @@
 					clearInterval(checkIframeMessageExist);
 				}
 			}, 100); // check every 100ms
+			*/
 		}
 		
 		if (window.addEventListener) {
